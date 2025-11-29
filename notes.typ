@@ -44,7 +44,7 @@
 
 === Definitions
 
-/ Socket: Endpoint for communication. Combines an IP Address and a port number (e.g., `192.168.1.53:8080`).
+/ Socket: Endpoint for communication. Combines an IP Address and a port number (e.g., `198.51.100.0:8080`).
 / Port: Where data flows out of or into. A point of egress or ingress. Also uniquely identifies processes or programs on a network.
 / Host: Another name for a computer.
 
@@ -146,7 +146,7 @@ the packages there. Instead of physical home addresses the IP protocol uses IP a
 as its home addresses.
 
 There are two versions of IP:
-+ IPv4: 4-byte (192.168.1.53)
++ IPv4: 4-byte (198.51.100.0)
 + IPv6: 16-byte (04d3:df2e:8b81:26f6:0121:98a0:04bf:ecf2)
 
 Structure of an IP address (2-parts):
@@ -209,7 +209,55 @@ Dynamic Addresses are common for home networks. When you turn off and turn back 
 
 #line(length: 100%)
 == Chapter 7: The Internet Protocol version 4
-
 === Notes
+Example IPv4 address: `198.51.100.125`
+
+Always four numbers divided by three dots. 
+Each number will range from 0-255, since IPv4 is 4-bytes. \
+#align(center, block[
+1-byte = $2^8$ = 256
+])
+
+IP addresses are split up into subnets. The first part of that IP is the subnet number and the second is the computer on that subnet.
+
+There is not a set amount of bits of an IP address that denote a subnet number. It's variable.
+
+When you set up a network that has a public facing IP address, you are allocated a subnet by the provider. The more hosts the subnet supports, the more expensive.
+
+Let's say you need 180, IP static, IP addresses. That means that in total you will need 182 (the 2 come from the reserved addresses that you need (all zero and all one addresses)).
+
+How much bits are needed to represent the number 182? 8-bits since $2^8$ = 256. Not anything less since $2^7$ = 128.
+
+So we say: \
+
+`Your subet is 198.51.100.0 and there are 24 network bits and 8 host bits.`
+
+Put more succinctly:
+
+`198.51.100.0/24`
+
+
+
 === Questions
+
+- *`192.168.262.12` is not a valid IP address. Why?* \
+#align(center, block[
+  262 > 0-255. This is not within the IPv4 standard.
+])
+
+- *Reflect on some advantages of the subnet concept as a way of dividing the global address space* \
+#align(center, block[
+  Better organization by allowing large networks to be broken up into more manageable segments.
+])
+
+- *What is your computer's IPv4 address and subnet mask right now?* \
+#align(center, block[
+`198.51.100.0/24`
+])
+
+- *If an IP address is listed as 10.37.129.212/17, how many bits are used to represent the hosts?* \
+#align(center, block[
+  32-17 = 15 hosts bits
+])
 === Definitions
+
