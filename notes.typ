@@ -259,5 +259,55 @@ Put more succinctly:
 #align(center, block[
   32-17 = 15 hosts bits
 ])
+
 === Definitions
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 8: The Internet Protocol version 6
+=== Notes
+IPv4 (4-bytes) vs IPv6 (16 bytes) \
+\
+IPv6 is composed of 8 sets of 4 hex digits (each hex digit is 4bits) so one section of hex digits is 16 bits \
+#align(center, block[
+  `2001:0db8:6ffa:8939:163b:4cab:98bf:070a`
+])
+
+Simplifying IPv6 addresses:
+
+#align(center, block[
+  example : `2001:0db8:6ffa:0000:0000:00ab:98bf:070a`
+])
+
+First, remove all leading zeroes \n
+
+#align(center, block[
+  example : `2001:db8:6ffa:0:0:ab:98bf:70a`
+])
+
+Then remove all contiguous sets of zeros, and the colon(s) that connect them.
+
+#align(center, block[
+  example : `2001:db8:6ffa::ab:98bf:70a`
+])
+
+::1 = localhost
+fe80::/10 = link local address
+2001:db8::/32 = for documentation
+
+
+=== Questions
+- *What are some benefits of IPv6 over IPv4* \
+#align(center, block[
+  WAY more addresses
+])
+
+- *How can the address `2001:0db8:004a:0000:0000:00ab:ab4d:000a` be written more simply?* \
+#align(center, block[
+2001:db8:004a:0:0:ab:ab4d:a
+
+then,
+
+2001:db8:004a::ab:ab4d:a
+])
 
