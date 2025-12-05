@@ -312,3 +312,66 @@ then,
 ])
 
 
+=== Definitions
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 10: Endianness and Integers
+
+=== Notes
+How would you send integer data to another computer with the knowledge you have learned so far? I would probably turn the data into a string and send it over using the same process I have learned so far.
+
+Little Endian: Least significant bits come at the front. \
+#align(center, block[
+e.g. `0x45f2` would be represented as `0xf245`.
+])
+Big Endian: Most significant bits come at the front *the normal way*. Sometimes called *network byte order*\
+
+All network models are transmitted as big-endian
+
+Converting a base 10 number to a bytestring using python
+
+n = 3490
+
+bytes = n.to_bytes(2, "big")
+
+for byte in bytes:\
+print(byte)
+
+COUT:\
+13 \
+162 \
+
+13 x 256 + 162 = 3490
+
+=== Questions
+
+- *Using only the .to_bytes() and .from_bytes() methods, how can you swap the byte order in a 2-byte number? (That is reverse the bytes.) How can you do that without using any loops or other methods? (Hint: "big" and "little"!)* \
+#align(center, block[
+  n = 0xabcd\
+  reg_bytes = n.to_bytes(2, "big") \
+  flipped = int.from_bytes(reg_bytes, "little")\
+  print(flipped.to_bytes(2, "big")\
+])
+
+- *Little-endian vs big-endian* \
+#align(center, block[
+  Little-endian least significant bits first
+  Big-endian most significant bits first
+])
+
+- *What is network byte order? * \
+#align(center, block[
+  Another name for big-endian
+])
+
+- *Why not just send an entire number at once instead of breaking it up into bytes?* \
+#align(center, block[
+  A lot of computer storage is byte-based and memory stuff usually happens bytes at a time. It's kind of the standard unit
+])
+
+
+- *Little-endian seems backwards. Why does it even exist? Do a little internet searching* \
+#align(center, block[
+  It's for making certain operations easier. For example, doing a carry operation from adding two numbers is way easier in little endian.
+])

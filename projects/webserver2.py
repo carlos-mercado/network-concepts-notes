@@ -2,8 +2,8 @@
 GOALS:
 1. Parse that request header to get the file name. *DONE*
 2. Strip the path off for security reasons. *DONE*
-3. Read the data from the named file.
-4. Determine the type of data in the file, HTML or text.
+3. Read the data from the named file. *DONE*
+4. Determine the type of data in the file, HTML or text. *DONE*
 5. Build an HTTP response packet with the file data in the payload.
 6. Send that HTTP response back to the client.
 """
