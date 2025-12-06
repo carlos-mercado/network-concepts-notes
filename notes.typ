@@ -375,3 +375,34 @@ COUT:\
 #align(center, block[
   It's for making certain operations easier. For example, doing a carry operation from adding two numbers is way easier in little endian.
 ])
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 11: Parsing Packets
+=== Notes
+We've been calling recv() with some number to get that amount of bytes back. The thing is we don't really know how long the message is so rec(4096) might only get 10 bytes back as a message. And rec(10) might be missing 4086 bytes. A little wasteful no?
+
+With a little abstraction this is possible:
+
+`
+global buffer = b''    # Empty bytestring
+
+function get_packet():
+    while True:
+        if buffer starts with a complete packet
+            extract the packet data
+            strip the packet data off the front of the buffer
+            return the packet data
+
+        receive more data
+
+        if amount of data received is zero bytes
+            return connection closed indicator
+
+        append received data onto the buffer
+`
+=== Questions
+- *Describe the advantages from a Programming perspective to abstracting packets out of a string of data?*
+#align(center, block[
+Less verbose, more intuitive when reading the code?  
+])
