@@ -17,11 +17,8 @@ def system_seconds_since_1900():
 host = "time-a-b.nist.gov"
 port = 37 #this is the time protocol port
 
-#my_request = f"GET / HTTP/1.1\r\nHost: {host}\r\nConnection: close\r\n\r\n"
-#prepared_request = my_request.encode('iso-8859-1')
 my_socket = socket.socket()
 my_socket.connect((host, port))
-#my_socket.sendall(prepared_request)
 
 response = my_socket.recv(4)
 
