@@ -406,3 +406,104 @@ function get_packet():
 #align(center, block[
 Less verbose, more intuitive when reading the code?  
 ])
+
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 14: Transmission Control Protocol
+=== Notes
+
+The Goals of TCP:
+- Reliable Communication
+- Simulate a circuit-like connection on a packet-switched network
+- Provide flow control
+- Provide congestion control.
+- Support out-of-band data.
+
+TCP happens at the transport layer.
+
+TCP does three main things:
+- Make the connection
+- Transmit data
+- Close the connection
+
+The three way handshake: Occurs at the start of each TCP connection.
+
+`
+1. `*`SYN`*`: the client send a SYN (synchronize) packet to the server.
+2. `*`SYN-ACK`*`: The server responds with a SYN-ACK (synchronize acknowledge) packet back to the client.
+3. `*`ACK`*`: The client responds with an ACK (acknowledge) packet back to the server.
+`
+
+If the handshake does not complete within a normal amount of time the packet is resent.
+
+*Data Transmission with TCP*
+
+Streams of data are given to TCP. TCP splits up the data in to chunks. TCP then slaps a header on each chunk as well as a number (to they can be put back together later).
+
+These chunks that TCP produces are called TCP segments.
+
+When we send TCP segments we expect an *`ACK`* response. If we don't get an *`ACK`* response obviously something might have gone wrong, send again.
+
+If a either side of a connection wants to close the connection, they send a *`FIN`* packet.
+
+#align(center, block[
+  `SENDER`
+#text("        ")
+  `RECIVER` \
+
+  *`can you hear me?`* $arrow.r$ *`*receiver receives*`* \ syn
+  \
+  *`*sender receives*`* $arrow.l$ *`I can hear you, what's up?`* \ syn-ack
+  \
+  *`You can hear me? Perfect.`* $arrow.r$ *`*receiver receives*`* \ ack
+
+])
+
+*Segment Misorderings/Defects*
+
+If segment come misordered they can be reordered because they are labeled with numbers so they can be put back together later should this exact situation come up.
+
+If segments come through the system can find that out using the numbers also. Just find out what numbers you've seen before.
+
+If segments are missing TCP asks for re-transmission, which is achieved by *`ACK`* ing the previous segment. 
+
+What if a segment is corrupted?  \
+Before a segment is sent a checksum is computed for that specific segment, when this segment arrives to the reciever. The reciever also computes the checksum for the segment that is recieved. If the checksums do not match the sender must timeout and retransmit the segment.
+
+
+*Flow Control* \
+As part of the receiver's ACK packet, the receiver can put some data called a sliding window in the header to tell the sender how much more data(bytes) that they are willing to receive. Giving the receiver the power to only receive as much as they can handle. 
+
+*Congestion Control* \
+Look up slow start algo
+
+=== Questions
+
+- *Name a few protocols that rely on TCP for data integrity* \
+#align(center, block[
+  HTTP, FTP, IMAP, TELNET, SSH
+])
+
+- *Why is there a three-way handshake to set up a connection? Why not just start transmitting* \
+#align(center, block[
+  Setting up the handshake makes the communication between two computers more reliable. It's like making sure that the friend that you are talking to on the other line is on other side of the call is ready to receive information
+])
+
+
+- *How does a checksum protect against data corruption?* \
+#align(center, block[
+  If the checksum of the received segment does not match the checksum of the sent segment something went wrong. 
+])
+
+- *What's the main difference between flow control and congestion control?* \
+#align(center, block[
+Flow control manages the rate of data transmission between COMPUTERS to prevent overwhelming the receiver. Congestion control manages overall NETWORK traffic to prevent the NETWORK from becoming overloaded.
+])
+
+- *What is the purpose of flow control* \
+#align(center, block[
+managing transmission between computers (senders and receivers) to make sure that the receiver is not overwhelmed by to much segments.
+])
+
+
