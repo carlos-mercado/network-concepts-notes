@@ -413,6 +413,8 @@ Less verbose, more intuitive when reading the code?
 == Chapter 14: Transmission Control Protocol
 === Notes
 
+Kinda the doomer protocol, assumes the worst all the time.
+
 The Goals of TCP:
 - Reliable Communication
 - Simulate a circuit-like connection on a packet-switched network
@@ -507,3 +509,69 @@ managing transmission between computers (senders and receivers) to make sure tha
 ])
 
 
+
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 15: User Datagram Protocol (UDP)
+=== Notes
+
+Simple in comparison to TCP, which is very important for lightweight transfer of data over the internet.
+
+The protocol launches packets, hopes they arrive.
+
+The Protocol does *NOT* guarantee:
+- That the data will come in order
+- That packets will not be lost.
+- That the packets might not be duplicated
+
+If these things are important to you use TCP.
+
+These is ONE guarantee that the protocol has:
+
+
+#align(center, block[
+  `IF the data does arrive, it WILL be correct.`
+])
+
+The lack of guarantees  = low overhead. less stuff to do. stuff takes time.
+
+TCP and UDP can use the same port. This makes sense. A port is like an extension to an IP addresse that further specifies where data should go. How an apartment complex has a address, but there is also apartment numbers which are more specific numbers to use when finding out where a package should go. 
+
+UDP does not establish a connection before sending data. This why UDP described as connectionless.
+
+TCP delivers a package by hand, asks for your signature, and takes a picture on the way out.
+
+UDP throws your package out of the window while driving by, but it puts the package in a lot of bubble wrap so that nothing can break inside.
+
+For error detection TCP also uses checksums.
+
+
+=== Questions
+
+- *What does TCP provide that UDP does not in terms of delivery guarantees.* \
+#align(center, block[
+  Flow control, congestion control, reliable communication.
+])
+
+- *Why do people recommend keeping UDP packets small?* \
+#align(center, block[
+  So that they aren't split up by protocols down the line
+])
+
+- *Why is the UDP header so much smaller than the TCP header?* \
+#align(center, block[
+  UDP doesn't have to label the index of the packet on each header, it also doesn't try to control flow to the reciever, as well as not having to consider congestion control.
+])
+
+
+- *`sendto()` requires you specify a destination IP and port. Why does the TCP-oriented send() function not require those arguments.* \
+#align(center, block[
+ Because with TCP, you establish a connection (specifying IP and port) before sending data, so `send()` already knows the destination. UDP does not establish a connection, so `sendto()` needs the destination each time.
+])
+
+
+- *Why would people use UDP over TCP if it's relatively unreliable? * \
+#align(center, block[
+  If your use-case does not mind if a couple packets are dropped here and then.
+])
