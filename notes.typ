@@ -575,3 +575,11 @@ For error detection TCP also uses checksums.
 #align(center, block[
   If your use-case does not mind if a couple packets are dropped here and then.
 ])
+
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 17: 
+=== Notes
+
+
