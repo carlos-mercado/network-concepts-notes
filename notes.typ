@@ -550,9 +550,7 @@ For error detection TCP also uses checksums.
 === Questions
 
 - *What does TCP provide that UDP does not in terms of delivery guarantees.* \
-#align(center, block[
-  Flow control, congestion control, reliable communication.
-])
+#align(center, block[ Flow control, congestion control, reliable communication. ])
 
 - *Why do people recommend keeping UDP packets small?* \
 #align(center, block[
@@ -579,7 +577,192 @@ For error detection TCP also uses checksums.
 
 #pagebreak()
 #line(length: 100%)
-== Chapter 17: 
+== Chapter 17: IP Subnets and Subnet Masks
 === Notes
 
+IP string to IP number : \
+#align(center, block[
+`"192.51.100.10"` \
+])
 
+*Step One:* \
+Split the string on '.'
+
+#align(center, block[
+`["198", "51", "100", "10"]` \
+])
+
+*Step Two:* \
+Convert Strings to Integers
+
+#align(center, block[
+`[198, 51, 100, 10]` \
+])
+
+*Step Three:* \
+Use this neat little bitwise shift and bitwise or operator trick
+
+#align(center, block[
+`(198 << 24) | (51 << 16) | (100 << 8) | (10 << 0)` \
+  Decimal : *3325256714* \
+  Hex: *0xc633640a*
+])
+
+Do you see how this rebuilds the 32bit IPv4 number? \
+194 will occupy the first 8 bits, \
+51 the next 8, \
+100 the next 8, \
+and 10 the final 8. \
+
+IP NUMBER to String: \
+#align(center, block[
+`"0xabcd1234"` \
+])
+
+#align(center, block[
+`
+>>> hex(0xabcd1234 >> 0)
+0xabcd12 `*34*`
+>>> hex(0xabcd1234 >> 8)
+'0x00abcd `*12*`'
+>>> hex(0xabcd1234 >> 16)
+'0x0000ab `*cd*`'
+>>> hex(0xabcd1234 >> 24)
+'0x000000 `*ab*`'
+>>> #see how I got was able to get all 4 bytes there ?
+`
+])
+
+The problem is obviously those leading zeroes. How should we deal with those?
+
+Notice:
+
+#align(center, block[
+` 0x00ABCD12 AND 0x000000ff = 0x00000012`
+])
+
+#pagebreak()
+
+This is called an *AND mask*. Using this tool  extracting is as easy as:
+
+#align(center, block[
+`
+>>> hex(0xabcd1234 >> 0 & 0x000000ff)
+'0x34'
+>>> hex(0xabcd1234 >> 8 & 0x000000ff)
+'0x12'
+>>> hex(0xabcd1234 >> 16 & 0x000000ff)
+'0xcd'
+>>> hex(0xabcd1234 >> 24 & 0x000000ff)
+'0xab'
+`
+])
+
+How to get the Subnet of an IP address:
+
+Given an ip address with slash nonation like 
+
+#align(center, block[
+  `198.51.100.10/24` 
+])
+How can we extract the just the subnet bits:
+
+#align(center, block[ `198.51.100.0` ])
+
+Since we know the subnet spans 24 bits from the slash notation. The subnet mask will be
+
+#align(center, block[ `255.255.255.0`\ or\ `11111111.11111111.11111111.00000000`])
+
+Note that there is no rule that a subnet must only span a length of bits divisible by eight. For example, consider 
+
+#align(center, block[
+  `198.51.100.10/28` 
+])
+
+The subnet mask would look like this
+
+#align(center, block[ `11111111.11111111.11111111.11110000`])
+
+Use this subnet mask and AND them with the IP address to get the network number.
+
+
+=== Questions
+- *What is the 32bit (4 byte) representation of 10.100.30.90 in hex? in decimal? in binary?* \
+
+#align(center, block[ 
+  `
+  decimal = 174333530
+  binary = 0b1010011001000001111001011010
+  hex = 0xa641e5a
+  `
+])
+
+#pagebreak()
+- *What is the dots-and-numbers IP address represented by the 32-bit numbers 0xc0a88225* \
+#align(center, block[ 
+  `
+>>> h = 0xc0a88225
+>>> and_mask = 0x000000ff
+>>> h >> 0 & and_mask
+37
+>>> h >> 8 & and_mask
+130
+>>> h >> 16 & and_mask
+168
+>>> h >> 24 & and_mask
+192
+
+  `*`192.168.130.37`*`
+  `
+])
+
+
+- *What is the dots-and-numbers IP address represented by the 32-bit decimal number 180229186* \
+
+#align(center, block[ 
+  `
+>>> h = 180229186
+>>> h >> 0 & and_mask
+66
+>>> h >> 8 & and_mask
+20
+>>> h >> 16 & and_mask
+190
+>>> h >> 24 & and_mask
+10
+  `*`10.190.20.66`*`
+  `
+])
+
+- *What bitwise operation do you need to extract the second byte from the left of the number 0x12ff5678?* \
+
+#align(center, block[ 
+  `
+>>> hex(h >> 16 & and_mask)
+'0xff'
+  `
+])
+
+- *What is the slash notation for the subnet mask 255.255.0.0* \
+
+#align(center, block[ 
+  255.255.0.0/16
+])
+
+- *What is the subnet mask for the network 192.168.1.12/24* \
+#align(center, block[ 
+  `0xffffff00`
+])
+
+- *What are the numeric operations necessary to convert a slash subnet mask to a binary value?*\
+#align(center, block[ 
+  `
+  BITWISE NOT
+  BITWISE SHIFT LEFT
+  `
+])
+
+- *Given an IP address value and a subnet mask value, what bitwise operation do you need to perform to get the subnet number from the IP address *\
+#align(center, block[ 
+  `BITWISE AND`
+])
