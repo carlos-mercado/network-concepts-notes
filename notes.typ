@@ -633,7 +633,7 @@ IP NUMBER to String: \
 `
 ])
 
-The problem is obviously those leading zeroes. How should we deal with those?
+The problem is obviously those leading bytes. We don't need those so how should we deal with them?
 
 Notice:
 
@@ -686,6 +686,7 @@ The subnet mask would look like this
 Use this subnet mask and AND them with the IP address to get the network number.
 
 
+#pagebreak()
 === Questions
 - *What is the 32bit (4 byte) representation of 10.100.30.90 in hex? in decimal? in binary?* \
 
