@@ -766,4 +766,101 @@ Use this subnet mask and AND them with the IP address to get the network number.
 - *Given an IP address value and a subnet mask value, what bitwise operation do you need to perform to get the subnet number from the IP address *\
 #align(center, block[ 
   `BITWISE AND`
+]);
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 18: IP Routing
+=== Notes
+
+_The internet_. Clumps of loosely connected networks.
+
+Goal for Routing Protocols: give routers enough information to make routing decisions.
+
+*Interior Gateway Protocols*: Routing protocol that is optimized for smaller networks with a small amount of subnets.
+
+#align(center, block[
+= Interior Gateway Protocols
 ])
+
+#table(
+  columns: (auto, auto, 1fr),
+  inset: 10pt,
+  align: horizon,
+  table.header(
+    [*Abbreviation*], [*Name*], [*Notes*],
+  ),
+  [OSPF], [Open Shortest Path First], [Most commonly used, IP layer],
+  [IS-IS], [Intermediate System to Intermediate System], [Link layer],
+  [EIGRP], [Enhanced Interior Gateway Routing Protocol], [Cisco semi-proprietary],
+  [RIP], [Routing Information Protocol], [Old, rarely used],
+)
+
+It's not really feasible to give all routers a map of the internet. It's way to big, and it's always changing. So what is the approach we should take?
+
+*Exterior Gateway Protocols*: Routing protocol that is used to make routing decisions for the wider internet.
+
+Each autonomous system on the internet is assigned an autonomous system number (ASN) that is used by the border Gateway protocol to help determine where to route packets.
+
+#align(center, block[
+= Exterior Gateway Protocols
+])
+
+#table(
+  columns: (auto, auto, 1fr),
+  inset: 10pt,
+  align: horizon,
+  table.header(
+    [*Abbreviation*], [*Name*], [*Notes*],
+  ),
+  [BGP], [Border Gateway Protocol], [Used everywhere],
+  [EGP], [Exterior Gateway Protocol], [Obsolete],
+)
+
+Note that BGP has two modes. _Internal_ BGP and _External_ BGP. \
+In _Internal_ mode it acts as an interior gateway protocol. \
+In _External_ mode it acts as an exterior gateway protocol.
+
+
+*Routing Tables* \
+Table that stores information on where to store packets.
+
+*Infinite Loops When Routing* \
+In the IP header there is a counter (1-byte) that starts at 255 and counts down every time a router forwards a packet. When the counter gets to zero, the packet is discarded, and a "Time Exceeded" message is returned to the sender.
+
+The most times a packet can be _routed_ is 255 times.
+
+=== Questions
+
+- *What is the difference between an interior gateway protocol and an external gateway protocol?* \
+#align(center, block[
+IGP is used for routing within a sincular autonomous system. EGP used for routing packets throughout the wider multi-autonomous-system internet.
+])
+
+- *What is the goal of a routing protocol in general* \
+#align(center, block[
+  The goal is to give routers information, and enough of it, to make routing decisions.
+])
+
+- *What's an example of a place where an interior gateway protocol would be used? And exterior?* \
+#align(center, block[
+  IGP: Asking for a resource on a LAN.\
+  EGP: Sending a packet to a computer that is outside of your current autonomous system 
+])
+
+- *What does a router use its routing table to determine* \
+#align(center, block[
+  where to route packets next
+])
+
+- *What does an IP router do next with a packet if the destination IP address is not on one of it's local subnets. * \
+#align(center, block[
+  The router checks the routing table for the destination subnet. 
+])
+
+- *Why would a process send anything to the broadcast address?* \
+#align(center, block[
+  After first connecting a device to a network that device can send a DHCP packet to the broadcast address to get it's IP, subnet mask, default gateway
+])
+
+
