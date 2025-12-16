@@ -2,7 +2,7 @@
 
 == Chapter 3
 
-=== Notes
+=== _Notes_
 
 *How to connect to another computer:*
 + Ask the operating system for a socket.
@@ -22,7 +22,7 @@
 + Send and receive data.
 + Go back to step 3 and repeat.
 
-=== Questions
+=== _Questions_
 
 - *What role does `bind()` play server side?* \
   It binds a socket to a port.
@@ -42,7 +42,7 @@
 - *Speculate on why ports exist. What functionality do they make possible that plain IP addresses do not?* \
   A port is like a specific apartment number; the IP is just the address of the apartment building. Without the port number (apartment number), how could the package be sent to the right recipient?
 
-=== Definitions
+=== _Definitions_
 
 / Socket: Endpoint for communication. Combines an IP Address and a port number (e.g., `198.51.100.0:8080`).
 / Port: Where data flows out of or into. A point of egress or ingress. Also uniquely identifies processes or programs on a network.
@@ -52,7 +52,7 @@
 #line(length: 100%)
 == Chapter 4: The Layered Network Model
 
-=== Notes
+=== _Notes_
 
 *Example HTTP request:*
 
@@ -100,7 +100,7 @@ align: horizon,
 
 #link("https://media.geeksforgeeks.org/wp-content/uploads/20250825185948477480/OSI-Model.webp")[Click here to view the OSI Model Diagram]
 
-=== Questions
+=== _Questions_
 
 
 - *When a router sees an IP address, how does it know where to forward it?* \
@@ -118,7 +118,7 @@ align: horizon,
 - *If UDP is unreliable and TCP is reliable, speculate on why one might ever use UDP.* \
   If speed is a priority UDP might be the better choice. This is why the UDP protocol is used with many multiplayer games.
 
-=== Definitions
+=== _Definitions_
 
 / TCP: Transmission Control Protocol. Reliable in-order data transmission. Uses port numbers to identify senders and receivers of data.
 / UDP: Somewhat of a sibling of TCP. Lighter weight, but cannot guarantee data will arrive, be in-order, or that it won't be duplicated. If it arrives it will be error-free.
@@ -139,7 +139,7 @@ align: horizon,
 #line(length: 100%)
 == Chapter 6: The Internet Protocol (IP)
 
-=== Notes
+=== _Notes_
 
 Think of this protocol like the postal office. It takes packages with addresses and sends
 the packages there. Instead of physical home addresses the IP protocol uses IP addresses
@@ -172,7 +172,7 @@ Static Addresses don't change Dynamic addresses do. Static addresses are commonl
 
 Dynamic Addresses are common for home networks. When you turn off and turn back on your router you might get assigned an address that is different that it was before. When you connect a device to WiFi that device is given a dynamic IP via DHCP.
 
-=== Questions
+=== _Questions_
 
 - *How many times more IPv6 addresses are than IPv4 addresses* \
 #align(center, block[
@@ -198,7 +198,7 @@ Dynamic Addresses are common for home networks. When you turn off and turn back 
   You don't want a server's IP address to change if you are going to constantly SSH into it or if you are hosting a popular website. The DNS would have to change the IP associated with the domain name. If the DNS is not updated immediately after an IP change happens, there would be outages.
 ])
 
-=== Definitions
+=== _Definitions_
 / Host: A computer. To be specific, an instance of a computer.
 
 / Static IP Addresses: Never change. You might use this for a website or a server that users need to constantly access. You don't want that address changing ever couple days.
@@ -209,7 +209,7 @@ Dynamic Addresses are common for home networks. When you turn off and turn back 
 
 #line(length: 100%)
 == Chapter 7: The Internet Protocol version 4
-=== Notes
+=== _Notes_
 Example IPv4 address: `198.51.100.125`
 
 Always four numbers divided by three dots. 
@@ -238,7 +238,7 @@ Put more succinctly:
 
 
 
-=== Questions
+=== _Questions_
 
 - *`192.168.262.12` is not a valid IP address. Why?* \
 #align(center, block[
@@ -260,12 +260,12 @@ Put more succinctly:
   32-17 = 15 hosts bits
 ])
 
-=== Definitions
+=== _Definitions_
 
 #pagebreak()
 #line(length: 100%)
 == Chapter 8: The Internet Protocol version 6
-=== Notes
+=== _Notes_
 IPv4 (4-bytes) vs IPv6 (16 bytes) \
 \
 IPv6 is composed of 8 sets of 4 hex digits (each hex digit is 4bits) so one section of hex digits is 16 bits \
@@ -296,7 +296,7 @@ fe80::/10 = link local address
 2001:db8::/32 = for documentation
 
 
-=== Questions
+=== _Questions_
 - *What are some benefits of IPv6 over IPv4* \
 #align(center, block[
   WAY more addresses
@@ -312,13 +312,13 @@ then,
 ])
 
 
-=== Definitions
+=== _Definitions_
 
 #pagebreak()
 #line(length: 100%)
 == Chapter 10: Endianness and Integers
 
-=== Notes
+=== _Notes_
 How would you send integer data to another computer with the knowledge you have learned so far? I would probably turn the data into a string and send it over using the same process I have learned so far.
 
 Little Endian: Least significant bits come at the front. \
@@ -344,7 +344,7 @@ COUT:\
 
 13 x 256 + 162 = 3490
 
-=== Questions
+=== _Questions_
 
 - *Using only the .to_bytes() and .from_bytes() methods, how can you swap the byte order in a 2-byte number? (That is reverse the bytes.) How can you do that without using any loops or other methods? (Hint: "big" and "little"!)* \
 #align(center, block[
@@ -379,7 +379,7 @@ COUT:\
 #pagebreak()
 #line(length: 100%)
 == Chapter 11: Parsing Packets
-=== Notes
+=== _Notes_
 We've been calling recv() with some number to get that amount of bytes back. The thing is we don't really know how long the message is so rec(4096) might only get 10 bytes back as a message. And rec(10) might be missing 4086 bytes. A little wasteful no?
 
 With a little abstraction this is possible:
@@ -401,7 +401,7 @@ function get_packet():
 
         append received data onto the buffer
 `
-=== Questions
+=== _Questions_
 - *Describe the advantages from a Programming perspective to abstracting packets out of a string of data?*
 #align(center, block[
 Less verbose, more intuitive when reading the code?  
@@ -411,7 +411,7 @@ Less verbose, more intuitive when reading the code?
 #pagebreak()
 #line(length: 100%)
 == Chapter 14: Transmission Control Protocol
-=== Notes
+=== _Notes_
 
 Kinda the doomer protocol, assumes the worst all the time.
 
@@ -480,7 +480,7 @@ As part of the receiver's ACK packet, the receiver can put some data called a sl
 *Congestion Control* \
 Look up slow start algo
 
-=== Questions
+=== _Questions_
 
 - *Name a few protocols that rely on TCP for data integrity* \
 #align(center, block[
@@ -514,7 +514,7 @@ managing transmission between computers (senders and receivers) to make sure tha
 #pagebreak()
 #line(length: 100%)
 == Chapter 15: User Datagram Protocol (UDP)
-=== Notes
+=== _Notes_
 
 Simple in comparison to TCP, which is very important for lightweight transfer of data over the internet.
 
@@ -547,7 +547,7 @@ UDP throws your package out of the window while driving by, but it puts the pack
 For error detection TCP also uses checksums.
 
 
-=== Questions
+=== _Questions_
 
 - *What does TCP provide that UDP does not in terms of delivery guarantees.* \
 #align(center, block[ Flow control, congestion control, reliable communication. ])
@@ -578,7 +578,7 @@ For error detection TCP also uses checksums.
 #pagebreak()
 #line(length: 100%)
 == Chapter 17: IP Subnets and Subnet Masks
-=== Notes
+=== _Notes_
 
 IP string to IP number : \
 #align(center, block[
@@ -687,7 +687,7 @@ Use this subnet mask and AND them with the IP address to get the network number.
 
 
 #pagebreak()
-=== Questions
+=== _Questions_
 - *What is the 32bit (4 byte) representation of 10.100.30.90 in hex? in decimal? in binary?* \
 
 #align(center, block[ 
@@ -698,7 +698,6 @@ Use this subnet mask and AND them with the IP address to get the network number.
   `
 ])
 
-#pagebreak()
 - *What is the dots-and-numbers IP address represented by the 32-bit numbers 0xc0a88225* \
 #align(center, block[ 
   `
@@ -771,7 +770,7 @@ Use this subnet mask and AND them with the IP address to get the network number.
 #pagebreak()
 #line(length: 100%)
 == Chapter 18: IP Routing
-=== Notes
+=== _Notes_
 
 _The internet_. Clumps of loosely connected networks.
 
@@ -830,7 +829,7 @@ In the IP header there is a counter (1-byte) that starts at 255 and counts down 
 
 The most times a packet can be _routed_ is 255 times.
 
-=== Questions
+=== _Questions_
 
 - *What is the difference between an interior gateway protocol and an external gateway protocol?* \
 #align(center, block[
@@ -863,4 +862,104 @@ IGP is used for routing within a sincular autonomous system. EGP used for routin
   After first connecting a device to a network that device can send a DHCP packet to the broadcast address to get it's IP, subnet mask, default gateway
 ])
 
+#pagebreak()
+#line(length: 100%)
+== Chapter 20: The Link Layer and Ethernet
+=== _Notes_
+\
+The Link Layer is where bytes turn to electricity.
 
+_A Note on Octets_ \ 
+Bytes didn't always mean 8 bits. So some implementations can be a little weird. So to be absolutely sure that you are communicating 8-bytes. We can say _octet_. 
+ \ \
+_Frames vs Packets_ \
+Data sent out over the Ethernet: packets.
+
+Within packets there are things called *_frames_*.\
+
+Frames are like sub-packets. But sometimes frames and packets are used interchangeably.
+
+ \ \
+_MAC Addresses_ \
+Any device that can connect to a network has a MAC Address cooked on to the device from the factory.
+\ \
+
+#align(center, block[
+  Example ethernet MAC Addresses: \
+  *`ac:d1:b8:df:20:85`* \
+  *`ac-d1-b8-df-20-85`* \
+  *`acd1.b8df.2085`* \
+])\
+
+Note that you can get unlucky and get network cards that have the same MAC address. In that case, you would want to change the address of one device. 
+
+The first three bytes are called the OUI (Organizationally unique Identifier). This is a number that is assigned to the manufacturer. Kind of like a 3-byte combo that represents the company.
+
+This means that the company another 3 bytes to work with (16,777,216 combos).
+
+ \ \
+_Multiple Access Method_ \
+
+Problem: Let's say that there is a set of computers that share a WIRED Ethernet connection. How can each computer communicate on that wire without stepping on another computer's toes?
+
+Wired Ethernet's Solution (CSMA/CD or Carrier-Sense Multiple Access with Collision Detection) \
+`
+Step 1: Wait for quiet in the room (no network card is transmitting)
+Step 2: It starts sending.
+Step 3: It also starts listening.
+Step 4: If it receives the same thing that is sent. OK, all good. If it doesn't that means that another card tried to transmitt at the same time.
+Step 5: The network card transmitts a "jam signal". This tell the other network card to stop transmitting because a collision has occurred. The card then waits a small, partly random amounts of time and then goes back to step 1 to try transmission again.
+`
+\ \ Wireless Ethernet's (WiFi) Solution (CSMA/CA or Carrier-Sense Multiple Access with Collision Avoidance) \
+`
+Step 1: Ethernet card waits for quiet in the room, when there is nobody transmitting.
+Step 2: If the channel is not quiet, the card waits a small, random amount of time and then goes back to step 1 to retry.
+`
+ \ \
+_Ethernet_
+
+To reiterate, the data that is transmitted is an Ethernet packet, but within that exists an Ethernet frame. \ 
+Here is the structure of an Ethernet packet: \
+`
+The packet:
+- 7 octets: Preamble (in hex: AA AA AA AA AA AA AA)
+- 1 octet: Start frame delimiter (in hex: AB)
+- The Frame:
+    - 6 Octets: Destination mac address
+    - 6 Octets: Source MAC address
+    - 4 Octets: "Dot1q" tag for virtual LAN differentiation.
+    - 2 Octets: Payload length/ethertype
+    - 46-1500 Octets: Payload
+    - 4 Octets: CRC-32 Checksum
+    - 2 Octets: Payload length/ethertype
+- End of frame marker, loss of carrier signal
+- Interpacket gap, enough time to transmit 12 octets
+`
+
+\ The Payload length/ethertype field is normally used for just the payload len, but other values can be inserted to indicate an alternate payload structure.
+
+
+
+=== _Questions_
+
+- *What's you MAC address on your computer? Do an internet search to find how to look it up.* \
+#align(center, block[
+    f0:6e:0b:dd:92:2a
+])
+
+- *What's the deal with frames versus packets in Ethernet? Where in the ISO OSI network stack do they live?* \
+#align(center, block[
+  Frames are a specific part of the Ethernet packet. Ethernet packets lie on the Physical layer of the network stack, and frames lie on the Data link layer.
+])
+
+
+- *What's the difference between a byte and an octet* \
+#align(center, block[
+  An octet always means eight bits. That is has not always been the case with byte. So to be completely sure you are referring to 8 bits use the word octet
+])
+
+
+- *What's the man difference between CSMA/CD and CSMA/CA?* \
+#align(center, block[
+  CSMA/CD is used for wired ethernet, and CSMA/CA is used for wireless. CSMA/CA makes sure that there is no other network cards transmitting before transmitting and if there is it waits a bit. Also, CD has a procedure that it follows in case of a collision. CA does not
+])
