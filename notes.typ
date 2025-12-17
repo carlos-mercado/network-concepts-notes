@@ -963,3 +963,91 @@ The packet:
 #align(center, block[
   CSMA/CD is used for wired ethernet, and CSMA/CA is used for wireless. CSMA/CA makes sure that there is no other network cards transmitting before transmitting and if there is it waits a bit. Also, CD has a procedure that it follows in case of a collision. CA does not
 ])
+
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 21: ARP - The Address Resolution Protocol
+
+=== _Notes_
+
+Problem: How do we send data over LAN to another computer on the same subnet?
+
+What we *NEED* to build an Ethernet Frame:
+- The data that we want to send and it's length.
+- Our source MAC Address
+- The destination MAC Address
+
+Here's what we *DO* know:
+- The data we want to send and it's length.
+- The source MAC address.
+- The source IP Address
+- The destination IP address
+
+Do you see the issue? We don't know the destination MAC Address. 
+
+\ _Recall_ \
+Network cards only listen for Ethernet frames addressed specifically to them. So any frames that are not addressed to them are ignored.
+
+But we can override this behavior with the *broadcast frame*. This is a frame that has a destination MAC Address of ff:ff:ff:ff:ff:ff.
+
+ARP makes use of this fact.
+
+\ _The Address Resolution Protocol_ \
+We need the receiving computer's MAC Address, how is this done?
+
+Here are the steps:
+1. The source computer will broadcast the Ethernet frame that contains the destination IP address. This is the ARP request.
+
+2. All computers on the LAN get the ARP request. All the computers on the LAN will examine it. But only the computer with the IP address specified in the ARP request will continue. The other computers get discard the packet.
+
+3. The destination computer with the specified IP addresse builds an ARP response. This Ethernet frame contains the destination computer's MAC address.
+
+4. The destination computer sends that ARP response back to the source computer.
+
+5. The source computer receives the ARP response, and now it knows the destination computer's MAC address.
+
+\ _ARP Caching_ \
+Would it not be annoying going through that entire ARP protocol every time that you needed to send Ethernet frames to another computer?
+
+We can cache the MAC Address for a little bit.
+
+\ _ARP Structure_ \
+(Total fixed length of 28 octets)
+`
+The payload:
+- 2 octets: Hardware Type (Ethernet is 0x0001)
+- 2 octets: Protocol Type (IPv4 is 0x8000)
+- 1 octets: Hardware address length in octets (Ethernet is 0x06)
+- 1 octets: Protocol address length in octets (IPv4 is 0x04)
+- 2 octets: Operation (0x01 for request, 0x02 for reply)
+- 6 octets: Sender hardware address (Sender MAC Address)
+- 4 octets: Sender protocol address (Sender IP Address)
+- 6 octets: Target hardware address (Target MAC Address)
+- 4 octets: Target protocol address (Target IP Address)
+`
+
+
+=== _Questions_
+
+- *Describe the problem that ARP is solving.* \
+#align(center, block[
+  When I try to send a Ethernet packet to another network card on the same network, a problem comes up. I need to know the MAC address of the receiving network card to send the packet, so how do I get that? That is where ARP comes in and gives us a way of getting the hardware address of the receiving network card that was previously unknown.
+])
+
+- *Why do entries in ARP caches has to expire* \
+#align(center, block[
+  They have to expire because it is possible they can go stale. The info that is stored in the ARP cache is a IP Address => MAC address MAP. So if a computer disconnects from a network and another new computer connect to the same network and is assigned that old computer's IP address the data would be send to the new computer's hardware address. Which is not the behavior that we want.
+])
+
+- *Why can't IPv6 use ARP* \
+#align(center, block[
+  The target and sender addresses only numbers of at most 4-bytes or 4 octets, IPv6 addresses are 16 bytes.
+])
+
+/*
+These are my questions for this chapter
+
+If you have the destination computer's IP address, why do you have to broadcast the ARP packet to everybody?
+
+*/
