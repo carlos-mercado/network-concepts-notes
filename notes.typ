@@ -1040,10 +1040,7 @@ The payload:
   They have to expire because it is possible they can go stale. The info that is stored in the ARP cache is a IP Address => MAC address MAP. So if a computer disconnects from a network and another new computer connect to the same network and is assigned that old computer's IP address the data would be send to the new computer's hardware address. Which is not the behavior that we want.
 ])
 
-- *Why can't IPv6 use ARP* \
-#align(center, block[
-  The target and sender addresses only numbers of at most 4-bytes or 4 octets, IPv6 addresses are 16 bytes.
-])
+- *Why can't IPv6 use ARP* )
 
 /*
 These are my questions for this chapter
