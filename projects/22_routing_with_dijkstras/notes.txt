@@ -1,0 +1,20 @@
+Stuff that I found useful in this proj.
+
+The instructions are very helpful don't try to implements without reading them. You will save yourself an hour or more in time. 
+
+The functions we implemented in the prev project are very important. I grabbed the file and put in the same dir as the rest of the
+files.
+
+You can import the function like so:
+
+`import netfuncs`
+
+After you get a output from the function that looks right you can redirect the output to a file like so (LINUX):
+
+`python dijkstra.py example.json > myout.txt`
+
+Then you can just 
+
+`diff myout.txt example1_output.txt` to see if the files match.
+
+That easy.
