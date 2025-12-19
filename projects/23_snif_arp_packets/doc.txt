@@ -1,0 +1,38 @@
+Windows MAC Address: 00:13:EF:F6:9E:71
+Windows IP Address: 192.168.1.51
+
+
+Linux MAC Address: ether f0:6e:0b:dd:92:2e
+Linux IP Address 192.168.1.173
+
+Request and Reply (Sent from windows machine):
+ARP 42 Who has 192.168.1.173? Tell 192.168.1.51
+ARP 42 192.168.1.173 is at f0:6e:0b:dd:92:2e
+
+_REQUEST_
+Frame 149718: Packet, 42 bytes on wire (336 bits), 42 bytes captured (336 bits) on interface \Device\NPF_{A27660B4-798F-4F63-A9F9-3CA63EC75ECF}, id 0
+Ethernet II, Src: KingjonDigit_f6:9e:71 (00:13:ef:f6:9e:71), Dst: Microsoft_dd:92:2e (f0:6e:0b:dd:92:2e)
+Address Resolution Protocol (request)
+    Hardware type: Ethernet (1)
+    Protocol type: IPv4 (0x0800)
+    Hardware size: 6
+    Protocol size: 4
+    Opcode: request (1)
+    Sender MAC address: KingjonDigit_f6:9e:71 (00:13:ef:f6:9e:71)
+    Sender IP address: 192.168.1.51
+    Target MAC address: Microsoft_dd:92:2e (f0:6e:0b:dd:92:2e)
+    Target IP address: 192.168.1.173
+
+_REPLY_
+Frame 149719: Packet, 42 bytes on wire (336 bits), 42 bytes captured (336 bits) on interface \Device\NPF_{A27660B4-798F-4F63-A9F9-3CA63EC75ECF}, id 0
+Ethernet II, Src: Microsoft_dd:92:2e (f0:6e:0b:dd:92:2e), Dst: KingjonDigit_f6:9e:71 (00:13:ef:f6:9e:71)
+Address Resolution Protocol (reply)
+    Hardware type: Ethernet (1)
+    Protocol type: IPv4 (0x0800)
+    Hardware size: 6
+    Protocol size: 4
+    Opcode: reply (2)
+    Sender MAC address: Microsoft_dd:92:2e (f0:6e:0b:dd:92:2e)
+    Sender IP address: 192.168.1.173
+    Target MAC address: KingjonDigit_f6:9e:71 (00:13:ef:f6:9e:71)
+    Target IP address: 192.168.1.51
