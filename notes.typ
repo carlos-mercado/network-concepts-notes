@@ -1040,11 +1040,34 @@ The payload:
   They have to expire because it is possible they can go stale. The info that is stored in the ARP cache is a IP Address => MAC address MAP. So if a computer disconnects from a network and another new computer connect to the same network and is assigned that old computer's IP address the data would be send to the new computer's hardware address. Which is not the behavior that we want.
 ])
 
-- *Why can't IPv6 use ARP* )
-
+- *Why can't IPv6 use ARP*
+#align(center, block[
+  4 octets is not enough bits to fit an IPv6 address.
+])
 /*
 These are my questions for this chapter
 
 If you have the destination computer's IP address, why do you have to broadcast the ARP packet to everybody?
 
 */
+
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 21: ARP - The Address Resolution Protocol
+=== _Definitions_ \
+
+*Network Topology* : Describes the layout of a network, how the devices and nodes are connected, and how data flows from one part of the network to another.
+
+*Bandwidth* : Measured in bits/sec. How much data a certain type of  cable can carry over a certain amount of time. (e.g. 500 Mbs).
+
+*Twisted Pair Cable* : What is commonly called an 'Ethernet cable'. This cable internals are two wires twisted together to reduce interference. These cables have a statistic called 'runs'. Runs are the distance a cable can be before it starts running into trouble. Usually 50-100 meters.
+
+*Network Port* : This is a `PHYSICAL SOCKET` on a device where you can plug in a network cable.
+
+=== _Questions_ \
+
+- *What's the difference between a hub and a switch*
+#align(center, block[
+
+])
