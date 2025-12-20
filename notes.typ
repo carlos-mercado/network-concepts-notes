@@ -1065,9 +1065,25 @@ If you have the destination computer's IP address, why do you have to broadcast 
 
 *Network Port* : This is a `PHYSICAL SOCKET` on a device where you can plug in a network cable.
 
-=== _Questions_ \
+=== _Questions_
 
 - *What's the difference between a hub and a switch*
 #align(center, block[
+  A hub transmits all incoming traffic from one computer to all other connected computers. A switch is "smarter" in that it knows the mac addresses of the computers connected to each port so it doesn't have to broadcast. 
+])
 
+
+- *What does a router do?*
+#align(center, block[
+  A router takes a packet and redirects it (not always directly) to it's destination according to it's routing table.
+])
+
+- *Why would a router with only one network connection not make any sense?*
+#align(center, block[
+  Who would the connection try to send packets to? If there is no need for transmission, there is no need for a router.
+])
+
+- *What kind of device do you connect to with your laptop where you live? Do you use a physical cable to connect?*
+#align(center, block[
+  I connect to my home WiFi router wirelessly.
 ])
