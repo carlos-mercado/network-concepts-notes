@@ -1054,7 +1054,7 @@ If you have the destination computer's IP address, why do you have to broadcast 
 
 #pagebreak()
 #line(length: 100%)
-== Chapter 21: ARP - The Address Resolution Protocol
+== Chapter 24: Network Hardware
 === _Definitions_ \
 
 *Network Topology* : Describes the layout of a network, how the devices and nodes are connected, and how data flows from one part of the network to another.
@@ -1087,3 +1087,9 @@ If you have the destination computer's IP address, why do you have to broadcast 
 #align(center, block[
   I connect to my home WiFi router wirelessly.
 ])
+
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 24: Network Hardware
+
