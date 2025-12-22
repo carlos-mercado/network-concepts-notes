@@ -1091,5 +1091,59 @@ If you have the destination computer's IP address, why do you have to broadcast 
 
 #pagebreak()
 #line(length: 100%)
-== Chapter 24: Network Hardware
+== Chapter 29: Select
+=== _Notes_
+
+\
+
+`select()`: A function that looks at a set of sockets and let's you know which ones have sent you data. Sockets that are ready to call recv() on.
+
+\ _The Problem_ \
+We cant just call `recv()` on all the established connections until a socket has sent data.  Calling `recv()` on socket that has no data to read, the call *_blocks_*, preventing anything else from running until some condition is met, in our case it waits until there is something to read from that socket.
+
+\ _Using Select_ \
+1. Import the `select` module.
+2. If you have multiple sockets, put them in a set and pass that set to the `select()` function.
+3. Get the list of sockets that are ready to read like so: 
+  - `ready, _, _ = select.select(socket_set, {},{})`
+4. The list returned to `ready` is list of sockets that are ready to read, go ahead and use `recv()`.
+
+\ _The Algorithm_ 
+`
+add the listener socket to the set
+
+main loop:
+
+    call select() and get the sockets that are ready to read
+
+    for all sockets that are ready to read:
+
+        if the socket is the listener socket:
+            accept() a new connection
+            add the new socket to our set!
+
+        else the socket is a regular socket:
+            recv() the data from the socket
+
+            if you receive zero bytes
+                the client hung up
+                remove the socket from tbe set!
+`
+  
+=== _Questions_
+
+- *Why can't we just call recv() on all the connected sockets? What does select() buy us?*
+#align(center, block[
+  If we try to call recv() on a socket that does not have any data to read. recv() blocks until there is something to be read (at that socket). With select we can see which sockets are ready to be read from so we can avoid that blocking issue.
+])
+
+- *When select shows a socket "ready-to-read" what does it mean if the socket is a listening socket vs a non-listening socket?*
+#align(center, block[
+  If a socket shows up as a listening socket that means that there is a new incoming connection, which should be established. If a socket shows up as a non-listening socket that means that there is new data to read from that socket (that has been previously established).
+])
+
+- *Why do we need to add the listener socket to the set, anyway? Why not just call accept() and then call select()?*
+#align(center, block[
+  If we don't add the listener socket to the set we can't track when the socket receives new data to read using select() since select() uses the set as an input variable
+])
 
