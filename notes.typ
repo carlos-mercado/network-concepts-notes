@@ -1147,3 +1147,110 @@ main loop:
   If we don't add the listener socket to the set we can't track when the socket receives new data to read using select() since select() uses the set as an input variable
 ])
 
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 31: Domain Name System
+=== _Notes_
+
+As humans we avoid using IP addresses. I even avoid using 127.0.0.1 in favor of localhost. Computers use domain name resolution to convert addresses like `www.example.com` to IP addresses. This is provided by servers that comprise the DNS.
+
+\ _Typical Usage_ \
+When connecting to `example.com`, your computer connects to a name server to get that IP address. If the server knows it it returns the IP, if not the process starts.
+
+\ _Domains and IP Addresses_ \
+After you buy a domain from a registrar, you need to connect your IP with the domain. This is done by adding a record with the info to a DNS Server.
+
+\ _Domain Name Servers_ \
+Servers that contain IP records for domains that they are authorities/owners of.
+
+If a specific server does not know the IP for a given domain, it will contact other servers. to ask if they know.
+
+\ _Root Name Servers_ \
+
+*Problem*: How do I connect to a name server for a domain if I don't know what the name server is for that specific domain?
+
+This is what Root Name Servers are for. \
+
+When we don't know an IP, we can first ask them to tell us the IP, or forward us to another server who might know which server to ask.
+
+Computers are preloaded with these 13 root name servers:
+
+`
+a.root-servers.net
+b.root-servers.net
+c.root-servers.net
+d.root-servers.net
+e.root-servers.net
+f.root-servers.net
+g.root-servers.net
+h.root-servers.net
+i.root-servers.net
+j.root-servers.net
+k.root-servers.net
+l.root-servers.net
+m.root-servers.net
+`
+
+\ _Zones_ \
+
+The Domain Name System is split into logical administrative zones. 
+
+What is a *zone*? A zones is a collection of domains under the authority of a particular name server.
+
+\ _Caching Servers_ \
+
+Asking the root server for an IP Address every time we need an IP, would be really annoying if EVERYONE connected to the internet was doing the same thing at the same time, the servers would struggle. 
+
+To avoid this DNS resolver libraries and DNS servers cache their results.
+
+The Process:
+- Ask our resolver library for an IP address. If it is cached it will return it. 
+- If it doesn't have it, we ask out local name server for the IP. If it has it cached, it will return it.
+- If it's not cached and if this name server has another upstream name server, it asks that name server
+- If it's not cached and if this name server does not have another upstream name server, it goes to the root servers and the process continues as before.
+
+\ _Dynamic DNS_ \
+
+Most Internet Users do not have a _static_ IP address. When a users home modem reboots, it might assign their device a new IP address. You might see the problem here. DNS records might have a stale IP address that does not match to the current (actual) one.
+
+DDNS tackles this issue like so using these mechanisms:
+
+1. Giving a client a way to tell the DDNS server what their IP address is.
+2. Giving the entry on the server a short life span.
+
+\ _Reverse DNS_ \
+
+Instead of 
+
+#align(center, block[
+  `example.com -> 129.212.1.23` 
+])
+
+it's 
+
+#align(center, block[
+  `192.212.1.23 -> example.com`
+])
+
+=== _Questions_
+
+- *What's your name server for your computer right now?*
+#align(center, block[
+  192.168.1.1
+])
+
+- *Do the root name servers know every IP address in the world?*
+#align(center, block[
+  No. They only store the IP addresses of the TLD Name Servers.
+])
+  
+- *Why would anyone use dynamic DNS*
+#align(center, block[
+  They would use dynamic DNS if their IP is not static. If their IP changes the DNS records would be stale.
+])
+
+- *What is TTL used for*
+#align(center, block[
+  TTL is used to set the "life-span" of a particular entry in the cache before it should be refreshed. A shorter TTL means that a record would be updated more often.
+])
