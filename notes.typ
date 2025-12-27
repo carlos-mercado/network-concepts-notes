@@ -1259,7 +1259,6 @@ it's
 #line(length: 100%)
 == Chapter 32: Network Address Translation (NAT)
 === _Notes_
-
 \
 
 NAT is a service that _hides_ your internal LAN, from the rest of the greater internet. The router is responsible for the service.
@@ -1307,4 +1306,65 @@ One of the reasons that we needed NAT was because of the finite amount of addres
 - *What problems does NAT solve?*
 #align(center, block[
   Don't have to exhaust as much of the limited amount of IPv4 addresses available, and  to hide your network details from the rest of the world.
+])
+
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 33: Dynamic Host Configuration Protocol (DHCP)
+=== _Notes_
+\
+
+Problem: When you first open your laptop at a new coffee shop. The computer does not have it's IP address it's subnet mask, it's name server.
+
+The barista is not gonna to through the trouble of looking up those details for you so how can this process be automated? DHCP
+
+\ _Operation_ \
+
+The overview: 
+`
+Client --> [DHCPDISCOVER packet] --> Server
+Client <-- [DHCPOFFER packet] <-- Server
+Client --> [DHCPREQUEST packet] --> Server
+Client <-- [DHCPACK packet] <-- Server
+`
+\ The details: \
+Laptop sends a DHCPDISCOVER packet to the broadcast address using UDP to port 67, the DHCP server port.
+
+There is a computer on the LAN that acts as the DHCP server. There is a process that runs on the computer that waits on port 67.
+
+The server sees the discover packet and decides what to do with it.
+
+The client usually just wants an IP. This is called IP leasing. The server sends a response to the discover packet and send the DHCPOFFER repsonse back to the client on port 68.
+
+The offer contains at an IP but may contain this much or more:
+- Subnet mask
+- Default gateway address
+- The lease time
+- DNS servers
+
+The client accepts the offer by sending a DHCPREQUEST packet back to the server, basically saying that it wants that IP that was offered by the DHCP server.
+
+If everything plays out as planned, the server replies with an acknowledgement packet, DHCPACK.
+
+Now the laptop has everything that it needs to participate on a network.
+
+
+=== _Questions_
+
+- *Reflect on the advantages of using something like DHCP over manually configuring the devices on your LAN.*
+#align(center, block[
+It is much easier and quicker to use DHCP. You don’t need someone to manually provide network information like name servers, unused IP addresses, subnet masks, etc. DHCP automates this process, reducing errors and saving time.
+])
+
+\
+\
+
+- *What types of information does a DHCP client receive from the DHCP server*
+#align(center, block[
+  IP address, 
+  Subnet mask, 
+  Default gateway address, 
+  The lease time,  
+  DNS servers, potentially more
 ])
