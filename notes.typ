@@ -1254,3 +1254,57 @@ it's
 #align(center, block[
   TTL is used to set the "life-span" of a particular entry in the cache before it should be refreshed. A shorter TTL means that a record would be updated more often.
 ])
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 32: Network Address Translation (NAT)
+=== _Notes_
+
+\
+
+NAT is a service that _hides_ your internal LAN, from the rest of the greater internet. The router is responsible for the service.
+
+Why would we want to hide?
+- Network details are sensitive.
+- You need more IP addresses than you can be allocated or pay for.
+
+\ _IPv4 Exhaustion_ \
+There are very limited amount of IPv4 addresses available. Getting a chunk of them for a decently sized business is expensive. It's easier to 'virtualize' the addresses by having large private networks behind NAT routers. So you can have lots of IPs while only sending packets from one single public IP.
+
+This is the main motivation for NAT.
+
+\ _Private Networks_ \
+
+Private networks have a couple subnets that are reserved for use as private networks.
+
+#align(center, block[
+For IPv4 there are these three:
+`
+10.0.0.0/8
+172.16.0.0/12
+192.168.0.0/16
+`
+])
+
+If routers see any packet with an IP from these subnets it will drop it immediately.
+
+The only way that you can get data from any of these IPs is via NAT.
+
+
+\ _NAT and IPv6_ \
+One of the reasons that we needed NAT was because of the finite amount of addresses left with IPv4. Would that be a problem with IPv6 addresses? No. Actually one of the reasons IPv6 was introduced was to move away from NAT.
+
+
+
+=== _Questions_
+
+- *Look up your computer's internal IP address. Then go to google.com and type "what is my ip" The numbers are different. Why?*
+#align(center, block[
+  The numbers are different because my router uses NAT. The internal IP shown when using `ifconfig` command shows my devices private IP address while the address shown when using goole is my routers public facing address.
+])
+
+
+- *What problems does NAT solve?*
+#align(center, block[
+  Don't have to exhaust as much of the limited amount of IPv4 addresses available, and  to hide your network details from the rest of the world.
+])
