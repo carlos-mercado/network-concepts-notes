@@ -1368,3 +1368,30 @@ It is much easier and quicker to use DHCP. You don’t need someone to manually 
   The lease time,  
   DNS servers, potentially more
 ])
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 35: Port Scanning
+=== _Notes_
+
+\
+_Definition_: A method of determining which ports on a computer are ready to accept connections. In other words, which ports have a server listening on them.
+
+\ _How it Works_ \
+Using TCP the program will try to set up a connection with `connect()` call on a candidate port. The call works, the port is open and the portscanner will output that info. The connection is closed immediately.
+
+\ _Portscanning UDP_ \
+
+Remember that no connection is established with UDP. So things get a little unreliable. If you send a UDP packet to a port and see "destination unreachable" the port is definitely closed. If you don't get a response the port may be open, it way be closed. The packet could have reached the open port, or the packet could be filtered out and dropped with no response. 
+
+
+=== _Questions_
+
+- *Why shouldn't you portscan random computers on the internet*
+#align(center, block[
+  It's legally ambiguous.
+])
+- *What's the purpose of using a portscanner?*
+#align(center, block[
+  To find the server's on a computer that are listening for connections.
+])
