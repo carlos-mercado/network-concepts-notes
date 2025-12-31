@@ -1395,3 +1395,82 @@ Remember that no connection is established with UDP. So things get a little unre
 #align(center, block[
   To find the server's on a computer that are listening for connections.
 ])
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 36: Firewalls
+=== _Notes_
+\
+
+_Definition_: A firewall is a computer (often a router) that restricts certain trypes of traffic between one interface and another. Instead of forwarding every packet of every type from every port, a firewall might decide to drop the packet instead. 
+
+\ _Firewall Operation_ \
+
+When a router receives a packet, it has the ability to inspect as much as it wants. This gives the router the ability to make decisions on weather to keep forwarding that packet.
+
+When a router gets a packet, it looks at the firewall rules as defined by some user and decides what to do with that packet (drop or forward).
+
+If the packet is dropped:
+- It can silently drop
+- Or it can reply with ICMP "destination unreachable" message.
+
+\ _Firewalls and NAT_ \
+In a home network. The modem is commonly the firewall, router, switch, and it also runs NAT.
+
+You could have a computer on a networks who's only job is to act as a firewall, it does not have to be the router.
+
+=== _Questions_
+
+- *What's the difference/relationship between a firewall and a router*
+#align(center, block[
+  A router is a computer on a network that forwards and receives packets. A firewall on a network is responsible for verifying if a packet should be forwarded or dropped. A router and a firewall could be one computer, they do not have to be distinct. They both look at packets, but their ultimate goals are different.
+])
+
+- *What's the difference/relationship between a firewall and a NAT*
+#align(center, block[
+  A firewall is ultimately responsible for choosing which traffic to allow and which to drop. While, a NAT's role on a network is in large part to separate it's private network from the larger public network.
+])
+
+
+- *What's the funniest or most painful thing in this NCIS clip?*
+#align(center, block[
+  Two people using the same keyboard in perfect harmony. Also, "public firewall"?.
+  
+])
+
+#pagebreak()
+#line(length: 100%)
+== Chapter 37: Trusting User Data
+=== _Notes_
+\
+
+When a server gets data from someone else on the internet, who is to say that, that specific person has good intentions. There are a lot of people who want to have access to your server.
+
+
+\ _Buffer Overflow/Overrun_ \
+
+Usually only a problem with memory unsafe languages like C or C++.
+
+The idea:
+- Your program allocated a fixed size of region of memory to use.
+- The program reads data into that memory region over network connection.
+- The attacker sends more data than fits in the region.
+- The program writes the data from the attacker, filling no only the memory region but also (overflowing) memory after the region.
+- Using this fact the attacker could overwrite the return address to point to the attackers payload which will them run and change the system according to the attackers wants.
+
+\ _Injection Attacks_ \
+
+These are attacks where a malicious user builds a malicious command using it's given user input to run unintended, sometimes malicious, system commands.
+
+
+=== _Questions_
+
+- *In general terms, what's the problem with trusting user input?*
+#align(center, block[
+  You can't guarantee that the user isn't malicious, so you must build you programs as if you are a malicious actor so that you can avoid getting compromised.
+])
+
+- *Why aren't buffer overflows as much of problem with languages like Python, Go, or Rust as they are with C*
+#align(center, block[
+  C/C++ are considered memory unsafe languages that make it easy to make mistakes that can be taken advantage of my malicious parties.
+])
